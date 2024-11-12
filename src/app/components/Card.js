@@ -24,7 +24,7 @@ function DisplayPorts ( { portsNames }) {
 
         <div>
             {shortenedPorts.map( ( port , index ) =>
-                <span key={ index }> { port } , </span>
+                <span key={ index }> {port} { index < shortenedPorts.length - 1 && ',' } </span>
             )}
         </div>
 
@@ -36,7 +36,7 @@ function DisplayPorts ( { portsNames }) {
 
                 <div className="">
                       { ports.map( ( port , index ) =>
-                          <p key={ index }> {port}, </p>
+                          <p key={ index }> {port} { index < ports.length - 1 && ',' } </p>
                       )}
                 </div>
           </>
