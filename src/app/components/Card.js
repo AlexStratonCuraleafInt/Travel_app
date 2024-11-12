@@ -1,4 +1,57 @@
+'use client'
 import * as React from "react";
+import { shortenList } from "../utils/shortenedList";
+import { useState } from 'react'
+
+function DisplayPorts ( { portsNames }) {
+
+  // 2 lists
+      // shortened - ( 0 - 2 )
+      // ( 3 - last item )
+  const [ ports , setPorts ] = useState( portsNames );
+  const [ dropdownState, setDropdownState ] = useState( false );
+  const [ shortenedPorts , setShortenedPorts ] = useState([]);
+
+  React.useEffect( ( ) => {
+      let portsShortenedVal = shortenList( ports );
+      setShortenedPorts( portsShortenedVal );
+  }, [ ] );
+
+  console.log( ports )
+
+  return (
+    <div className="relative">
+
+        <div>
+            {shortenedPorts.map( ( port , index ) =>
+                <span key={ index }> { port } , </span>
+            )}
+        </div>
+
+
+
+
+        { dropdownState &&
+          <>
+
+                <div className="">
+                      { ports.map( ( port , index ) =>
+                          <p key={ index }> {port}, </p>
+                      )}
+                </div>
+          </>
+
+        }
+
+        <button className="bg-blue-400 hover:bg-blue-700 text-white
+  px-4 py-2 rounded-lg transition-colors
+  duration-200" onClick={ () => setDropdownState( prev => !prev )}>
+     { !dropdownState  ? '... view all' : 'hide'  }
+  </button>
+
+    </div>
+  )
+}
 
 export default function ContainerCard({
   adventureImage,
@@ -17,7 +70,10 @@ export default function ContainerCard({
 }) {
   return (
     <section >
-     <div className=" overflow-y-auto m-8 rounded-lg bg-white transition-all duration-300 hover:scale-[1.02] shadow-xl hover:shadow-xl border border-black">
+     <div className="overflow-y-auto m-8 rounded-lg bg-white transition-all
+     duration-300 hover:scale-[1.02] shadow-xl hover:shadow-xl
+     border border-black"
+     >
         <img
           src={isAdventure ? adventureImage : shipImage}
           alt={
@@ -26,7 +82,7 @@ export default function ContainerCard({
               : `${shipName} cruise ship image`
           }
           loading='lazy'
-          className='w-full h-auto object-fit'
+          className='w-full h-[150px] object-fit'
         />
 {isAdventure ? (
       <h2 className="p-4 font-bold">{adventureName}</h2>
@@ -56,7 +112,9 @@ export default function ContainerCard({
   )}
 
   {portNames.length > 0 && (
-    <p className="m-2">Stops: {portNames.join(", ")}</p>
+    <span className="m-2">
+      Stops: <DisplayPorts portsNames={ portNames }/>
+    </span>
   )}
 {iconBgColour && (
     <img
