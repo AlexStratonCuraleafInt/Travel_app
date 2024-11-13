@@ -15,27 +15,26 @@ function DisplayPorts ( { portsNames }) {
   }, [ ] );
 
   return (
-    <div className="relative flex flex-col">
-        <div className="flex flex-wrap">
+    <div className="relative flex flex-row flex-wrap">
             {shortenedPorts.map( ( port , index ) =>
-                <span key={ index }> {port} { index < shortenedPorts.length - 1 && ', ' } </span>
+                <span key={ index }> {port} { index < shortenedPorts.length - 1 && ' , ' } </span>
             )}
 
         { dropdownState &&
-                <div className="m-2">
-                      { ports.map( ( port , index ) =>
-                          <p key={ index }> {port} { index < ports.length - 1 && ', ' } </p>
-                      )}
-                </div>
+             <>
+
+{ ports.map( ( port, index ) =>
+    <p key={ index }> {port} { index < ports.length - 1 && ' , ' } </p>
+)}
+
+             </>
         }
-  </div>
 
         <button className="cursor-pointer m-4 hover:bg-blue-200 text-black
   px-4 py-2 rounded-lg transition-colors
   duration-200" onClick={ () => setDropdownState( prev => !prev )}>
      { !dropdownState  ? '<view all>' : '<hide>'  }
   </button>
-
     </div>
   )
 }
@@ -94,7 +93,7 @@ export default function ContainerCard({
   )}
 
   {price && (
-    <p className="m-2 ">Total price: <span className="font-bold text-indigo-800">${price}</span></p>
+    <p className="m-2 font-bold">Total price: <span className="font-bold text-indigo-800">${price}</span></p>
   )}
 
   {portNames.length > 0 && (
