@@ -18,13 +18,13 @@ function DisplayPorts ( { portsNames }) {
     <div className="relative flex flex-col">
         <div className="flex flex-wrap">
             {shortenedPorts.map( ( port , index ) =>
-                <span key={ index }> {port} { index < shortenedPorts.length - 1 && ',' } </span>
+                <span key={ index }> {port} { index < shortenedPorts.length - 1 && ', ' } </span>
             )}
 
         { dropdownState &&
                 <div className="m-2">
                       { ports.map( ( port , index ) =>
-                          <p key={ index }> {port} { index < ports.length - 1 && ',' } </p>
+                          <p key={ index }> {port} { index < ports.length - 1 && ', ' } </p>
                       )}
                 </div>
         }
@@ -71,15 +71,15 @@ export default function ContainerCard({
           className='w-full h-[150px] object-fit'
         />
 {isAdventure ? (
-      <h2 className="p-4 font-bold">{adventureName}</h2>
+      <h2 className="p-4 font-bold text-blue-900">{adventureName}</h2>
     ) : (
       <>
-  {cruiseName && <p className="font-bold text-xl m-2">{nights} Night {cruiseName} Cruise</p>}
+  {cruiseName && <p className="font-bold text-xl m-2 text-blue-900">{nights} Night {cruiseName} Cruise</p>}
 
-  {shipName && <p className="m-2">{shipName}</p>}
+  {shipName && <p className="m-2 text-yellow-800 font-bold">{shipName}</p>}
 
   {sailDate && (
-    <p className="m-2">
+    <p className="m-2 text-green-700 font-bold">
       {new Date(sailDate).toLocaleDateString('en-GB', {
         weekday: 'long',
         day: 'numeric',
@@ -90,15 +90,15 @@ export default function ContainerCard({
   )}
 
   {startPort && (
-    <p className="font-bold m-2">From {startPort}</p>
+    <p className="font-bold m-2 text-pink-800">From {startPort}</p>
   )}
 
   {price && (
-    <p className="m-2">Total price: ${price}</p>
+    <p className="m-2 ">Total price: <span className="font-bold text-indigo-800">${price}</span></p>
   )}
 
   {portNames.length > 0 && (
-    <div className="m-2 flex flex-wrap">
+    <div className="m-2 flex flex-wrap text-indigo-800">
     <span className="mr-2">
       Stops: </span>
       <DisplayPorts portsNames={ portNames }/>
