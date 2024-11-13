@@ -1,52 +1,39 @@
 'use client'
 import * as React from "react";
 import { shortenList } from "../utils/shortenedList";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function DisplayPorts ( { portsNames }) {
 
-  // 2 lists
-      // shortened - ( 0 - 2 )
-      // ( 3 - last item )
   const [ ports , setPorts ] = useState( portsNames );
   const [ dropdownState, setDropdownState ] = useState( false );
   const [ shortenedPorts , setShortenedPorts ] = useState([]);
 
-  React.useEffect( ( ) => {
+  useEffect( ( ) => {
       let portsShortenedVal = shortenList( ports );
       setShortenedPorts( portsShortenedVal );
   }, [ ] );
 
-  console.log( ports )
-
   return (
-    <div className="relative">
-
-        <div>
+    <div className="relative flex flex-col">
+        <div className="flex flex-wrap">
             {shortenedPorts.map( ( port , index ) =>
                 <span key={ index }> {port} { index < shortenedPorts.length - 1 && ',' } </span>
             )}
-        </div>
-
-
-
 
         { dropdownState &&
-          <>
-
-                <div className="">
+                <div className="m-2">
                       { ports.map( ( port , index ) =>
                           <p key={ index }> {port} { index < ports.length - 1 && ',' } </p>
                       )}
                 </div>
-          </>
-
         }
+  </div>
 
-        <button className="bg-blue-400 hover:bg-blue-700 text-white
+        <button className="cursor-pointer m-4 hover:bg-blue-200 text-black
   px-4 py-2 rounded-lg transition-colors
   duration-200" onClick={ () => setDropdownState( prev => !prev )}>
-     { !dropdownState  ? '... view all' : 'hide'  }
+     { !dropdownState  ? '<view all>' : '<hide>'  }
   </button>
 
     </div>
@@ -70,9 +57,8 @@ export default function ContainerCard({
 }) {
   return (
     <section >
-     <div className="overflow-y-auto m-8 rounded-lg bg-white transition-all
-     duration-300 hover:scale-[1.02] shadow-xl hover:shadow-xl
-     border border-black"
+     <div className={`${!isAdventure ? 'min-h-[550px]' : ''}  m-8 rounded-lg bg-white transition-all
+     duration-300 hover:scale-[1.02] shadow-xl hover:shadow-xl border border-black`}
      >
         <img
           src={isAdventure ? adventureImage : shipImage}
@@ -112,9 +98,11 @@ export default function ContainerCard({
   )}
 
   {portNames.length > 0 && (
-    <span className="m-2">
-      Stops: <DisplayPorts portsNames={ portNames }/>
-    </span>
+    <div className="m-2 flex flex-wrap">
+    <span className="mr-2">
+      Stops: </span>
+      <DisplayPorts portsNames={ portNames }/>
+    </div>
   )}
 {iconBgColour && (
     <img

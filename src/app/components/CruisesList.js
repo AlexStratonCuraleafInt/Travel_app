@@ -7,8 +7,8 @@ export default function CruisesList({ allCruises }) {
       <h1 className='text-3xl font-bold m-8 text-black-500 flex flex-row'>Popular Cruises</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 w-full items-stretch p-4">
         {allCruises.map((cruise, index) => (
-          <div className="">
-            <ContainerCard key={index}
+          <div key={index}>
+            <ContainerCard
               cruiseName={cruise.name}
               nights={cruise.nights}
               sailDate={cruise.sailDate}
